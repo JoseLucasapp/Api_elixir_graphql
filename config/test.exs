@@ -10,6 +10,7 @@ config :codigo_font, CodigoFont.Repo,
   password: "1234",
   database: "todo",
   hostname: "localhost",
+  ownership_timeout: 100_000,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 

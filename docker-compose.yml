@@ -2,19 +2,27 @@ version: "3"
 
 services:
   phoenix:
-    build: .
+    container_name: phoenix
+    build: 
+      context: .
+      dockerfile: DockerFile
     volumes:
-      - ./src:/app
+      - ./:/app
     ports:
       - "4000:4000"
-    depends_on:
-      - db
-  db:
-    image: postgres:9.6
+    links: 
+      - database
+    depends_on: 
+      - database
+    working_dir: /app
+
+  database:
+    image: postgres:9.5
+    container_name: database
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "1234"
-      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: "1234",
+    volumes: 
+      - ./database:/var/lib/postgresql/data
+    ports: 
+      - 5432:5432
     restart: always
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data

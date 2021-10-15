@@ -4,10 +4,11 @@ import Config
 config :codigo_font, CodigoFont.Repo,
   username: "postgres",
   password: "postgres",
-  database: "codigo_font_dev",
+  database: "todo",
   hostname: "localhost",
+  ownership_timeout: 100_000,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: 2
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
