@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :codigo_font, CodigoFont.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "",
   database: "todo",
   hostname: "localhost",
   ownership_timeout: 100_000,
