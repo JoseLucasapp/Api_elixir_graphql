@@ -6,6 +6,7 @@ defmodule CodigoFont.Repo.Migrations.CreateUsers do
       add :username, :string
       add :email, :string
       add :password, :string
+      add :password_hash, :string
 
       timestamps()
     end

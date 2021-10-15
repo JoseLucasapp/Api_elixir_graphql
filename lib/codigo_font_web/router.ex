@@ -5,10 +5,15 @@ defmodule CodigoFontWeb.Router do
     plug(:accepts, ["json"])
   end
 
-  scope "/api", CodigoFontWeb do
+  scope "/api" do
     pipe_through(:api)
-  end
 
+    forward("/graphql", Absinthe.Plug, schema: CodigoFontWeb.Schema)
+
+    if Mix.env() == :dev do
+      forward("/graphiql", Absinthe.Plug.GraphiQL, schema: CodigoFontWeb.Schema)
+    end
+  end
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put

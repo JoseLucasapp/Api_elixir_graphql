@@ -2,13 +2,18 @@ import Config
 
 # Configure your database
 config :codigo_font, CodigoFont.Repo,
-  username: "postgres",
-  password: "",
-  database: "todo",
-  hostname: "localhost",
+  username: System.get_env("DATABASE_USER"),
+  password: System.get_env("DATABASE_PASS"),
+  database: System.get_env("DATABASE_NAME"),
+  hostname: System.get_env("DATABASE_HOST"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "2"),
   ownership_timeout: 100_000,
+  pool: Ecto.Adapters.SQL.Sandbox,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 2
+  adapter: Ecto.Adapters.Postgres,
+  migration_timestamps: [type: :utc_datetime_usec],
+  migration_lock: nil,
+  queue_target: 1000
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -19,11 +24,11 @@ config :codigo_font, CodigoFont.Repo,
 config :codigo_font, CodigoFontWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "nZ+s3eazWMDpXxh9h+3VVcJ2ukAcPdJ58vuQP7J5kUW4GuEBMdrgrO9sUFKXUeu7",
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}

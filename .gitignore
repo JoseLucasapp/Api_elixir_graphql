@@ -21,6 +21,6 @@ erl_crash.dump
 
 # Ignore package tarball (built via "mix hex.build").
 todos-*.tar
-
+/pgdata/
 .env
-/database/
+/db/

@@ -1,11 +1,25 @@
 version: "3"
 
+networks:
+    internal:
+      external: false
+
 services:
+
   phoenix:
     container_name: phoenix
     build: 
       context: .
       dockerfile: DockerFile
+    env_file:
+      - docker.env
+    environment:
+      DATABASE_URL: DB_URL
+      DATABASE_USER: DB_USERNAME
+      DATABASE_PASS: DB_PASSWORD
+      DATABASE_NAME: DB_USERNAME
+      DATABASE_PORT: "5433"
+      DATABASE_HOST: DB_HOST
     volumes:
       - ./:/app
     ports:
@@ -14,16 +28,23 @@ services:
       - database
     depends_on: 
       - database
+    networks:
+      - internal
     working_dir: /app
+    restart: always
 
   database:
-    image: postgres:9.5
     container_name: database
+    image: postgres:9.6
     environment:
-      - PGDATA=/var/lib/postgresql/data/pgdata
-      - POSTGRES_PASSWORD=1234
-      - POSTGRES_USER=postgres
-      - POSTGRES_HOST=postgres
-    volumes: 
-      - ./database:/var/lib/postgresql/data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     restart: always
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    networks:
+      - internal
+    ports:
+      - "5433:5432"
+    expose:
+      - "5433"

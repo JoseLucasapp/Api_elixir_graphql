@@ -6,6 +6,7 @@ defmodule CodigoFont.Accounts.User do
     field(:email, :string, unique: true)
     field(:password, :string)
     field(:username, :string)
+    field(:password_hash, :string)
 
     timestamps()
   end

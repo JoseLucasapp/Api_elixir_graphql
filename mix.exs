@@ -45,7 +45,10 @@ defmodule KV.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:argon2_elixir, "~> 2.2.1"}
+      {:argon2_elixir, "~> 2.2.1"},
+      {:absinthe, "~> 1.6", override: true},
+      {:absinthe_plug, "~> 1.5", override: true},
+      {:absinthe_ecto, "~> 0.1.3", override: true}
     ]
   end
 

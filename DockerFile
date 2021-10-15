@@ -1,4 +1,4 @@
-FROM elixir:1.12
+FROM elixir:1.10.2-alpine
 
 RUN apt-get update && \
     apt-get install -y postgresql-client && \
@@ -13,4 +13,6 @@ RUN mkdir /app
 
 WORKDIR /app
 
-CMD ["mix", "phx.server"]
+EXPOSE 4000
+
+CMD ["mix", "phx.server", "-p", "5433"]
