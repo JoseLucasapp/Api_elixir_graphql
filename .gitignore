@@ -24,3 +24,4 @@ todos-*.tar
 /pgdata/
 .env
 /db/
+docker.env
