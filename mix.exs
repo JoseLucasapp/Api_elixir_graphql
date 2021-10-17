@@ -48,7 +48,8 @@ defmodule KV.MixProject do
       {:argon2_elixir, "~> 2.2.1"},
       {:absinthe, "~> 1.6", override: true},
       {:absinthe_plug, "~> 1.5", override: true},
-      {:absinthe_ecto, "~> 0.1.3", override: true}
+      {:absinthe_ecto, "~> 0.1.3", override: true},
+      {:guardian, "~> 1.0"}
     ]
   end
 

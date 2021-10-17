@@ -1,18 +1,25 @@
-FROM elixir
+FROM elixir:latest
 
+# Install debian packages
 RUN apt-get update && \
-    sudo mix local.hex --force && \
-    sudo mix archive.install hex phx_new 1.5.3 --force && \
-    sudo mix local.rebar --force && \
-    apt-get install -y postgresql-client && \
-    apt-get install -y inotify-tools && \
-    apt-get install -y nodejs && \
-    curl -L https://npmjs.org/install.sh | sh
+    apt-get install --yes build-essential inotify-tools postgresql-client git && \
+    apt-get clean
 
-RUN mkdir /app
+ADD . /app
+
+# Install Phoenix packages
+RUN mix local.hex --force && \
+    mix local.rebar --force && \
+    mix archive.install --force hex phx_new 1.5.1
+
+# Install node
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs
 
 WORKDIR /app
 
+RUN mix deps.get
+RUN npm install --prefix ./assets
+
 EXPOSE 4000
 
-CMD ["mix", "phx.server", "-p", "5433"]
+CMD ["/app/entrypoint.sh"]

@@ -44,6 +44,11 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Guardian config details
+config :codigofont_graphql_api, CodigoFont.Guardian,
+  issuer: "codigofont_graphql_api",
+  secret_key: "EfBWqET1UX8eIlK5AflECIHmqFkzL309djJR+bkdutpcN4Mf9pEyz507zpVCsz03"
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
