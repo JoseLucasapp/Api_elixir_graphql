@@ -5,4 +5,5 @@ defmodule CodigoFontWeb.Schema.Types do
 
   import_types(Types.Usertype)
   import_types(Types.Sessiontype)
+  import_types(Types.Todotype)
 end

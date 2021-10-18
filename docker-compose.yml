@@ -10,12 +10,12 @@ services:
     env_file:
       - docker.env
     environment:
-      DATABASE_URL: DATABASE_URL
-      DATABASE_USER: DATABASE_USER
-      DATABASE_PASS: DATABASE_PASS
-      DATABASE_NAME: DATABASE_NAME
+      DATABASE_URL: postgres://cozajqbn:WAb-PavXlRQpqIGs17UnD8m1XckpJnEh@fanny.db.elephantsql.com/cozajqbn
+      DATABASE_USER: cozajqbn
+      DATABASE_PASS: WAb-PavXlRQpqIGs17UnD8m1XckpJnEh
+      DATABASE_NAME: cozajqbn
       DATABASE_PORT: 5433
-      DATABASE_HOST: DATABASE_HOST
+      DATABASE_HOST: fanny.db.elephantsql.com
     volumes:
       - ./:/app
     ports:

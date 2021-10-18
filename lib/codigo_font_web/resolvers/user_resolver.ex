@@ -2,7 +2,6 @@ defmodule CodigoFontWeb.Resolvers.UserResolver do
   alias CodigoFont.Accounts
 
   def users(_, _, %{context: context}) do
-    IO.inspect(context)
     {:ok, Accounts.list_users()}
   end
 

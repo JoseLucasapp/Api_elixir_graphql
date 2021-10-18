@@ -9,8 +9,14 @@ defmodule CodigoFontWeb.Schema do
     @desc "Get a list of all users"
     field :users, list_of(:user_type) do
       # Resolver
-      middleware(Middlewares.Authorization, :any)
+      middleware(Middlewares.Authorization, "admin")
       resolve(&Resolvers.UserResolver.users/3)
+    end
+
+    @desc "Get user todos"
+    field :get_todos, list_of(:todo_type) do
+      middleware(Middlewares.Authorization, :any)
+      resolve(&Resolvers.TodoResolver.get_todos/3)
     end
   end
 
@@ -25,6 +31,20 @@ defmodule CodigoFontWeb.Schema do
     field :login_user, type: :session_type do
       arg(:input, non_null(:session_input_type))
       resolve(&Resolvers.SessionResolver.login_users/3)
+    end
+
+    @desc "Create a todo"
+    field :create_todo, type: :todo_type do
+      arg(:input, non_null(:todo_input_type))
+      middleware(Middlewares.Authorization, :any)
+      resolve(&Resolvers.TodoResolver.create_todo/3)
+    end
+
+    @desc "Delete a todo"
+    field :delete_todo, type: :todo_type do
+      arg(:id, non_null(:id))
+      middleware(Middlewares.Authorization, :any)
+      resolve(&Resolvers.TodoResolver.delete/2)
     end
   end
 

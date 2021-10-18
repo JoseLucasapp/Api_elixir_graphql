@@ -7,6 +7,7 @@ defmodule CodigoFont.Accounts.User do
     field(:password, :string)
     field(:username, :string)
     field(:password_hash, :string)
+    field(:role, :string)
 
     timestamps()
   end
@@ -14,8 +15,8 @@ defmodule CodigoFont.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email, :password])
-    |> validate_required([:username, :email, :password])
+    |> cast(attrs, [:username, :email, :password, :role])
+    |> validate_required([:username, :email, :password, :role])
     |> validate_format(:email, ~r/@/)
     |> update_change(:email, &String.downcase(&1))
     |> validate_length(:password, min: 6, max: 12)

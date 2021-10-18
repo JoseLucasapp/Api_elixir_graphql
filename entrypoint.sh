@@ -7,11 +7,11 @@
 # which I've added to the Dockerfile but you could do this manually instead.
 
 # Wait until Postgres is ready before running the next step.
-while ! pg_isready -q -h $DATABASE_HOST -p $DATABASE_PORT -U $DATABASE_USER
-do
-  echo "$(date) - waiting for database to start."
-  sleep 2
-done
+#while ! pg_isready -q -h $DATABASE_HOST -p $DATABASE_PORT -U $DATABASE_USER
+#do
+  #echo "$(date) - waiting for database to start."
+ # sleep 2
+#done
 
 print_db_name()
 {
