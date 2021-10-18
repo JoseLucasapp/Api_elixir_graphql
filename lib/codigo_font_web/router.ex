@@ -3,6 +3,7 @@ defmodule CodigoFontWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
+    plug(CodigoFontWeb.Plugs.Context)
   end
 
   scope "/api" do
