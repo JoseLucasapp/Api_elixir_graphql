@@ -1,9 +1,5 @@
 version: "3"
 
-networks:
-    internal:
-      external: false
-
 services:
 
   phoenix:
@@ -24,27 +20,5 @@ services:
       - ./:/app
     ports:
       - "4000:4000"
-    links: 
-      - database
-    depends_on: 
-      - database
-    networks:
-      - internal
     working_dir: /app
     restart: always
-
-  database:
-    container_name: database
-    image: postgres:9.6
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    restart: always
-    volumes:
-      - ./db:/var/lib/postgresql/data
-    networks:
-      - internal
-    ports:
-      - "5433:5432"
-    expose:
-      - "5433"
