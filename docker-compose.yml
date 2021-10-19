@@ -7,15 +7,13 @@ services:
     build: 
       context: .
       dockerfile: DockerFile
-    env_file:
-      - docker.env
     environment:
-      DATABASE_URL: DATABASE_URL
-      DATABASE_USER: DATABASE_USER
-      DATABASE_PASS: DATABASE_PASS
-      DATABASE_NAME: DATABASE_NAME
-      DATABASE_PORT: DATABASE_PORT
-      DATABASE_HOST: DATABASE_HOST
+      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASS: ${DATABASE_PASS}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_HOST: ${DATABASE_HOST}
     volumes:
       - ./:/app
     ports:
@@ -32,7 +30,15 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: 1234
+      DATABASE_USER: postgres
+      DATABASE_PASS: 1234
+      DATABASE_NAME: todos
+      DATABASE_PORT: 5432
+      DATABASE_HOST: localhost
+      PGDATA: /var/lib/postgresql/data/pgdata
     restart: always
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./db:/var/lib/postgresql/data
+    ports: 
+        - 5432:5432

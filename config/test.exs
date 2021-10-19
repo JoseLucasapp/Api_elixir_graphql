@@ -6,12 +6,12 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :codigo_font, CodigoFont.Repo,
-  username: System.get_env("DATABASE_USER") || "postgres",
-  password: System.get_env("DATABASE_PASS") || "postgres",
-  database: System.get_env("DATABASE_NAME") || "todos",
-  hostname: System.get_env("DATABASE_HOST") || "localhost",
+  username: "postgres",
+  password: "1234",
+  database: "todos",
+  hostname: "localhost",
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "2"),
-  database_url: System.get_env("DATABASE_URL") || "postgres://postgres:postgres@localhost/todos",
+  database_url: "postgres://postgres:postgres@localhost/todos",
   ownership_timeout: 100_000,
   pool: Ecto.Adapters.SQL.Sandbox,
   show_sensitive_data_on_connection_error: true,
