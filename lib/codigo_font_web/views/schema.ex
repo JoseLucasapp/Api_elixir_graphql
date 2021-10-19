@@ -41,7 +41,7 @@ defmodule CodigoFontWeb.Schema do
     end
 
     @desc "Delete a todo"
-    field :delete_todo, type: :todo_type do
+    field :delete_todo, list_of(:todo_type) do
       arg(:id, non_null(:id))
       middleware(Middlewares.Authorization, :any)
       resolve(&Resolvers.TodoResolver.delete/2)

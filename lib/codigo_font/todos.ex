@@ -17,8 +17,9 @@ defmodule CodigoFont.Todos do
       [%Todo{}, ...]
 
   """
-  def list_todos() do
-    Repo.all(Todo)
+  def list_todos(user) do
+    result = Ecto.Adapters.SQL.query!(Repo, "SELECT * FROM todos WHERE user_id = $1", [user])
+    Enum.map(result.rows, &Repo.load(Todo, {result.columns, &1}))
   end
 
   @doc """
@@ -85,9 +86,11 @@ defmodule CodigoFont.Todos do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete(id) do
-    todo = Todo |> Repo.get(id)
-    Repo.delete(todo)
+  def delete(id, user_id) do
+    {id_new, _} = Integer.parse(id)
+    Ecto.Adapters.SQL.query!(Repo, "DELETE FROM todos WHERE id = $1 and user_id = $2", [id_new, user_id])
+    result = Ecto.Adapters.SQL.query!(Repo, "SELECT * FROM todos WHERE user_id = $1", [user_id])
+    Enum.map(result.rows, &Repo.load(Todo, {result.columns, &1}))
   end
 
   @doc """

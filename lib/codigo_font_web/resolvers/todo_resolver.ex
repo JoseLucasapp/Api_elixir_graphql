@@ -7,14 +7,10 @@ defmodule CodigoFontWeb.Resolvers.TodoResolver do
   end
 
   def get_todos(_, _, %{context: %{current_user: current_user}}) do
-    {:ok, Todos.list_todos()}
+    {:ok, Todos.list_todos(current_user.id)}
   end
 
-  def delete(%{id: id}, _info) do
-    with {:ok, post} <- Todos.delete(id) do
-      {:ok, post}
-    else
-      {:error, _} -> {:error, "Failed to delete todo"}
-    end
+  def delete(%{id: id}, %{context: %{current_user: current_user}}) do
+    {:ok, Todos.delete(id, current_user.id)}
   end
 end
